@@ -7,7 +7,7 @@ const socket = io("https://samurai-chat-back.herokuapp.com")
 function App() {
 
     const [messages, setMessages] = useState<Array<any>>([
-       /* {message: 'hey hey Kate', id: 123948, user: {id: '345678', name: 'Alex'}},
+        /*{message: 'hey hey Kate', id: 123948, user: {id: '345678', name: 'Alex'}},
         {message: 'hello Alex', id: 456, user: {id: '97656', name: 'Kate'}}*/
     ])
 
@@ -26,6 +26,9 @@ function App() {
 
         socket.on('init-messages-published', (messages: any) => {
             setMessages(messages)
+        })
+        socket.on('new-message-sent', (message: any) => {
+            setMessages( (messages) => [...messages, message])
         })
 
     }, [])
